@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PromptResults from './PromptResults';
 
-export function NewPrompt({ initialPrompt = "", onResults }) {
+export function NewPrompt({ initialPrompt = ""}) {
   const [responseData, setResponseData] = useState(null);
   const promptInputRef = useRef();
   const locationInputRef = useRef();
@@ -28,9 +28,6 @@ export function NewPrompt({ initialPrompt = "", onResults }) {
       const data = await response.json();
       setResponseData(data);
 
-      // Invoke the onResults callback with the received data
-      onResults(data);
-      console.log("NewPrompt onResults data:", data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
