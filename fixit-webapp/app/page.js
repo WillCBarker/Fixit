@@ -4,26 +4,22 @@ import PromptResults from "./components/prompt/PromptResults"; // Import PromptR
 import { useState } from "react";
 
 export default function Home() {
-  const [promptResults, setPromptResults] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [location, setLocation] = useState('');
+  const [searchClicked, setSearchClicked] = useState(false);
 
-  const handleResults = (data) => {
-    setPromptResults(data);
+  // Update search bar values upon submission of NewPrompt form
+  const handleSearch = (query, location) => {
+    setSearchQuery(query);
+    setLocation(location);
+    setSearchClicked(true);
+
   };
-
   return (
     <main className="flex-grow flex flex-col items-center justify-center">
-      {promptResults ? (
-        // Render layout after PromptResults displays data
-        <div className="w-full mt-4 flex flex-col items-center">
-          <PromptResults responseData={promptResults} />
-        </div>
-      ) : (
-        // Render NewPrompt when data is not yet available
-        <>
-            <h1 className="mb-4 text-8xl mb-20 font-bold">FixitLink</h1>
-            <NewPrompt onResults={handleResults} />
-        </>
-      )}
+      <h1 className="mb-10 text-8xl font-bold border-b-2 border-fixit-green">FixitLink</h1>
+      <NewPrompt onSearch={handleSearch} />
+      <PromptResults searchQuery={searchQuery} location={location} searchClicked={searchClicked}/>
     </main>
   );
 }
